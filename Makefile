@@ -10,6 +10,7 @@ INCLUDE_DIR 			= include
 OBJECT_DIR			= $(BUILD_DIR)/objects
 DEBUG_DIR			= $(BUILD_DIR)/debug
 RELEASE_DIR			= $(BUILD_DIR)/release
+INSTALL_DIR         = /usr/local/bin
 
 ifeq ($(ENABLE_WARNINGS), 1)
 	CXX_WARNINGS = pedantic-errors -Wall -Wextra -Werror
@@ -70,6 +71,12 @@ ifeq ($(DEBUG), 1)
 else
 	@(./$(RELEASE_DIR)/$(EXECUTABLE_NAME))
 endif
+
+install: $(BUILD_DIR)/$(EXECUTABLE_NAME)
+	cp -pf $(RELEASE_DIR)/$(EXECUTABLE_NAME) $(INSTALL_DIR)
+
+uninstall:
+	rm -f $(INSTALL_DIR)/$(EXECUTABLE_NAME)
 
 ##############
 ## PATTERNS ##
